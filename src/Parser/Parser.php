@@ -2,7 +2,13 @@
 
 namespace OK\Uml\Parser;
 
-use OK\Uml\Entity\{ArgumentNode, ClassNode, ConstantNode, InterfaceNode, MethodNode, PropertyNode, TraitNode};
+use OK\Uml\Entity\ArgumentNode;
+use OK\Uml\Entity\ClassNode;
+use OK\Uml\Entity\ConstantNode;
+use OK\Uml\Entity\InterfaceNode;
+use OK\Uml\Entity\MethodNode;
+use OK\Uml\Entity\PropertyNode;
+use OK\Uml\Entity\TraitNode;
 
 /**
  * @author Oleg Kochetkov <oleg.kochetkov999@yandex.ru>
@@ -14,7 +20,7 @@ class Parser {
         $classReflection = new \ReflectionClass($class);
 
         $classNode = new ClassNode($classReflection->getName());
-        $classNode->extend = $classReflection->getParentClass()->getName();
+        $classNode->extend = $classReflection->getParentClass() ? $classReflection->getParentClass()->getName() : null;
         $classNode->modifiers = $classReflection->getModifiers();
         
         /**
@@ -42,7 +48,7 @@ class Parser {
          * @var array $constant
          */
         foreach ($classReflection->getConstants() as $constant) {
-            $classNode->addConstant(self::createStaticProperty($constant));
+            $classNode->addConstant(self::createConstant($constant));
         }
         
         /**
@@ -58,9 +64,11 @@ class Parser {
         foreach ($classReflection->getTraits() as $trait) {
             $classNode->addTrait(self::createTrait($trait));
         }
+        
+        return $classNode;
     }
     
-    public static function createMethod(ReflectionMethod $method)
+    public static function createMethod(\ReflectionMethod $method)
     {
         $methodNode = new MethodNode();
             
@@ -70,14 +78,17 @@ class Parser {
          return $methodNode;
     }
     
-    public static function createProperty(ReflectionProperty $property)
+    public static function createProperty(\ReflectionProperty $property)
     {
         $propertyNode = new PropertyNode();
             
         $propertyNode->name = $property->getName();
-        $propertyNode->type = $property->getReturnType();
+        
+        if ($property->getDocComment()) {
+            $propertyNode->type = $property->getDocComment();
+        }
                 
-         return $propertyNode;
+        return $propertyNode;
     }
     
     public static function createStaticProperty(array $property)
@@ -90,16 +101,25 @@ class Parser {
          return $propertyNode;
     }
     
-    public static function createInterface(ReflectionInterface $interface)
+    public static function createConstant(array $property)
+    {
+        $propertyNode = new ConstantNode();
+            
+        $propertyNode->name = $property['name'];
+                
+         return $propertyNode;
+    }
+    
+    public static function createInterface(\ReflectionInterface $interface)
     {
         $interfaceNode = new InterfaceNode();
             
         $interfaceNode->name = $interface->getName();
                 
-         return $interfaceNode;
+        return $interfaceNode;
     }
     
-    public static function createTrait(ReflectionTrait $trait)
+    public static function createTrait(\ReflectionClass $trait)
     {
         $traitNode = new TraitNode();
             

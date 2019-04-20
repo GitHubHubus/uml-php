@@ -2,6 +2,8 @@
 
 namespace OK\Uml\Entity;
 
+use OK\Uml\Entity\CommonNode;
+
 /**
  * @author Oleg Kochetkov <oleg.kochetkov999@yandex.ru>
  */
@@ -12,11 +14,12 @@ class ClassNode {
     public $properties = [];
     public $constants = [];
     public $implements = [];
+    public $traits = [];
     public $extend;
     
     public function __construct(string $name = null)
     {
-        $this->name = name;
+        $this->name = $name;
     }
     
     public function addMethod(MethodNode $method)
@@ -37,5 +40,10 @@ class ClassNode {
     public function addInterface(InterfaceNode $interface)
     {
         $this->interface[] = $interface;
+    }
+    
+    public function addTrait(TraitNode $trait)
+    {
+        $this->trait[] = $trait;
     }
 }

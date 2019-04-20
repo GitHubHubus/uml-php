@@ -3,6 +3,7 @@
 namespace OK\Uml\Entity;
 
 use OK\Uml\Entity\CommonNode;
+use OK\Uml\Entity\MethodNode;
 
 /**
  * @author Oleg Kochetkov <oleg.kochetkov999@yandex.ru>
@@ -22,6 +23,17 @@ class ClassNode {
         $this->name = $name;
     }
     
+    /**
+     * @return array
+     */
+    public static function getMethods(): array
+    {
+        return $this->methods;
+    }
+    
+    /**
+     * @param MethodNode $method
+     */
     public function addMethod(MethodNode $method)
     {
         $this->methods[] = $method;

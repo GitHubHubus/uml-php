@@ -7,5 +7,10 @@ namespace OK\Uml\Entity;
  */
 trait CommonNode {
     public $name;
-    public $modifiers = [];
+    private $modifiers = [];
+    
+    public function addModifier(string $modifier)
+    {
+        $this->modifiers[] = $modifier;
+    }
 }

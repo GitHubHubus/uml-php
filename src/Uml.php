@@ -6,6 +6,7 @@ namespace OK\Uml;
  * @author Oleg Kochetkov <oleg.kochetkov999@yandex.ru>
  */
 class Uml {
+    private $prepared = [];
     private $serializer;
     private $parser;
     

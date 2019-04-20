@@ -9,7 +9,10 @@ class InterfaceNode {
     use CommonNode;
 
     public $methods = [];
-    public $properties = [];
-    public $implements = [];
     public $extend;
+    
+    public function addMethod(MethodNode $method)
+    {
+        $this->methods[] = $method;
+    }
 }

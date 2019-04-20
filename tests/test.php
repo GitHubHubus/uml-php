@@ -19,7 +19,7 @@ class Test {
         include __DIR__ . '/../src/Parser/Parser.php';
         $class = Parser::getClassInformation(ClassNode::class);
 
-//var_dump($class);   
+        var_dump($class);   
     }
 }
 

@@ -4,7 +4,6 @@ namespace OK\Uml\Entity;
 
 use OK\Uml\Entity\CommonNode;
 use OK\Uml\Entity\MethodNode;
-
 /**
  * @author Oleg Kochetkov <oleg.kochetkov999@yandex.ru>
  */
@@ -26,7 +25,7 @@ class ClassNode {
     /**
      * @return array
      */
-    public static function getMethods(): array
+    public function getMethods(): array
     {
         return $this->methods;
     }

@@ -15,6 +15,12 @@ use OK\Uml\Entity\TraitNode;
  */
 class Parser
 {
+    private static $attributes = [
+        'isStatic' => \ReflectionMethod::IS_STATIC, 
+        'isFinal' => \ReflectionMethod::IS_FINAL, 
+        'isAbstract' => \ReflectionMethod::IS_ABSTRACT
+    ];
+    
     public static $modifiers = [
         \ReflectionMethod::IS_ABSTRACT => 'abstract',
         \ReflectionMethod::IS_FINAL => 'final',
@@ -39,31 +45,24 @@ class Parser
         }
         
         /**
-         * @var ReflectionPrperty $property
+         * @var ReflectionProperty $property
          */
         foreach ($classReflection->getProperties() as $property) {
-        //    $classNode->addProperty(self::createProperty($property));
-        }
-        
-        /**
-         * @var array $property
-         */
-        foreach ($classReflection->getStaticProperties() as $property) {
-          //  $classNode->addProperty(self::createStaticProperty($property));
+            $classNode->addProperty(self::createProperty($property));
         }
         
         /**
          * @var array $constant
          */
-        foreach ($classReflection->getConstants() as $constant) {
-            //$classNode->addConstant(self::createConstant($constant));
+        foreach ($classReflection->getConstants() as $key => $value) {
+            $classNode->addConstant(self::createConstant($key, $value));
         }
         
         /**
          * @var ReflectionInterface $interface
          */
         foreach ($classReflection->getInterfaces() as $interface) {
-            //$classNode->addInterface(self::createInterface($interface));
+            $classNode->addInterface(self::createInterface($interface));
         }
         
         /**
@@ -94,11 +93,9 @@ class Parser
                 $methodNode->addArgument(self::createArgument($param, $args));
             }
         }
-        var_dump($method->getModifiers());die;
-        foreach ($method->getModifiers() as $code) {
-            $methodNode->addModifier(self::$modifiers[$code]);
-        }
 
+        $methodNode->setModifiers(self::getModifiers($method));
+        
         return $methodNode;
     }
     
@@ -106,37 +103,36 @@ class Parser
     {
         $propertyNode = new PropertyNode();
         $propertyNode->name = $property->getName();
-        
+        $propertyNode->setModifiers(self::getModifiers($property));
+
         if ($property->getDocComment()) {
-            $propertyNode->type = $property->getDocComment();
+            $propertyNode->type = DocCommentParser::getVarType($property->getDocComment());
         }
-                
+
         return $propertyNode;
     }
     
-    public static function createStaticProperty(array $property)
+    public static function createConstant(string $name, $value)
     {
-        $propertyNode = new PropertyNode();
-            
-        $propertyNode->name = $property['name'];
-        $propertyNode->type = $property['type'];
-                
-        return $propertyNode;
+        $constantNode = new ConstantNode();
+        $constantNode->name = $name;
+        $constantNode->type = gettype($value);
+
+        return $constantNode;
     }
     
-    public static function createConstant(array $property)
-    {
-        $propertyNode = new ConstantNode();
-        $propertyNode->name = $property['name'];
-                
-         return $propertyNode;
-    }
-    
-    public static function createInterface(\ReflectionInterface $interface)
+    public static function createInterface(\ReflectionClass $interface)
     {
         $interfaceNode = new InterfaceNode();
         $interfaceNode->name = $interface->getName();
-                
+        $interfaceNode->extend = $interface->getParentClass() ? $interface->getParentClass()->getName() : null; //return null why?
+        /**
+         * @var ReflectionMethod $method
+         */
+        foreach ($interface->getMethods() as $method) {
+            $interfaceNode->addMethod(self::createMethod($method));
+        }
+
         return $interfaceNode;
     }
     
@@ -164,5 +160,20 @@ class Parser
         }
 
         return $argumentNode;
+    }
+    
+    private static function getModifiers($object): array
+    {
+        $code = $object->getModifiers();
+        $modifiers = [];
+
+        foreach (self::$attributes as $function => $key) {
+            if (method_exists($object, $function) && $object->$function()) {
+                $code -= $key;
+                $modifiers[] = self::$modifiers[$key];
+            }
+        }
+        
+        return $modifiers;
     }
 }

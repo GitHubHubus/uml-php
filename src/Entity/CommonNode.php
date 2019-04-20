@@ -9,8 +9,8 @@ trait CommonNode {
     public $name;
     private $modifiers = [];
     
-    public function addModifier(string $modifier)
+    public function setModifiers(array $modifiers)
     {
-        $this->modifiers[] = $modifier;
+        $this->modifiers = $modifiers;
     }
 }

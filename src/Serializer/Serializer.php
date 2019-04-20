@@ -1,12 +1,12 @@
 <?php
 
-namespace OK\Uml\Parser;
+namespace OK\Uml\Serializer;
 
 
 /**
  * @author Oleg Kochetkov <oleg.kochetkov999@yandex.ru>
  */
-class Parser {
+class Serializer {
     public function getClassInformation(string $class)
     {
         

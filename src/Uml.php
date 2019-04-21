@@ -47,7 +47,7 @@ class Uml
         
         foreach ($files as $file) {
             $class = File::getClassName($file);
-            $data[] = $this->parser->getClassInformation($class);
+            $data[] = $this->parser::getClassInformation($class);
         }
         
         return $data;

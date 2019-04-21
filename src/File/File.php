@@ -1,6 +1,6 @@
 <?php
 
-namespace OK\Uml\Serializer;
+namespace OK\Uml\File;
 
 /**
  * @author Oleg Kochetkov <oleg.kochetkov999@yandex.ru>
@@ -13,18 +13,26 @@ class File
      */
     public static function get(string $directory): array
     {
-        $objects = scandir($directory);
+        $objects = @scandir($directory);
+        
+        if (!$objects) {
+            $error = error_get_last();
+            throw new \Exception($error['message'] . '[' . $directory . ']');
+        }
+        
         $files = [];
 
         foreach ($objects as $object) {
-            if (self::isDirectory($object)) {
-                $data = self::get($directory . '/' . $object);
+            $name = $directory . '/' . $object;
+
+            if (self::isDirectory($name)) {
+                $data = self::get($name);
                 array_merge($files, $data);
-            } else if (self::isPhpFile($directory)) {
-                $files[] = $directory . '/' . $object;
+            } else if (self::isPhpFile($name)) {
+                $files[] = $name;
             }
         }
-        
+
         return $files;
     }
     
@@ -61,6 +69,8 @@ class File
                 }
             }
         }
+        
+        return $namespace . '\\' . $class;
     }
     
     /**
@@ -70,7 +80,7 @@ class File
      */
     private static function isDirectory(string $name)
     {
-        return is_dir($name);
+        return (is_dir($name) && substr($name, -1) !== '.');
     }
     
     /**
@@ -79,6 +89,6 @@ class File
      */
     private static function isPhpFile(string $name): bool
     {
-        return stripos('.php', $name) !== false;
+        return stripos($name, '.php') !== false;
     }
 }

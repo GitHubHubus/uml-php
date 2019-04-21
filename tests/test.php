@@ -29,11 +29,20 @@ class Test {
         include __DIR__ . '/../src/Parser/Factory/PropertyFactory.php';
         include __DIR__ . '/../src/Parser/Factory/NodeFactory.php';
         
-        
+        include __DIR__ . '/../src/File/File.php';
+        include __DIR__ . '/../src/Serializer/SerializerInterface.php';
+        include __DIR__ . '/../src/Serializer/Serializer.php';
+        include __DIR__ . '/../src/Parser/ParserInterface.php';
         include __DIR__ . '/../src/Parser/Parser.php';
-        $class = Parser::getClassInformation(ClassNode::class);
+        include __DIR__ . '/../src/Uml.php';
+        
+        
 
-        var_dump($class);   
+        $uml = new \OK\Uml\Uml(__DIR__ . '/../src', new Parser(), new \OK\Uml\Serializer\Serializer());
+        
+        $data = $uml->getRaw();
+        
+        var_dump($data);   
     }
 }
 

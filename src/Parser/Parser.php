@@ -7,28 +7,15 @@ use OK\Uml\Entity\ClassNode;
 use OK\Uml\Entity\ConstantNode;
 use OK\Uml\Entity\InterfaceNode;
 use OK\Uml\Entity\MethodNode;
-use OK\Uml\Entity\PropertyNode;
 use OK\Uml\Entity\TraitNode;
+use OK\Uml\Parser\Factory\NodeFactory;
 
 /**
  * @author Oleg Kochetkov <oleg.kochetkov999@yandex.ru>
  */
 class Parser
 {
-    private static $attributes = [
-        'isStatic' => \ReflectionMethod::IS_STATIC, 
-        'isFinal' => \ReflectionMethod::IS_FINAL, 
-        'isAbstract' => \ReflectionMethod::IS_ABSTRACT
-    ];
     
-    public static $modifiers = [
-        \ReflectionMethod::IS_ABSTRACT => 'abstract',
-        \ReflectionMethod::IS_FINAL => 'final',
-        \ReflectionMethod::IS_PRIVATE => 'private',
-        \ReflectionMethod::IS_PROTECTED => 'protected',
-        \ReflectionMethod::IS_PUBLIC => 'public',
-        \ReflectionMethod::IS_STATIC => 'static'
-    ];
     
     public static function getClassInformation(string $class)
     {
@@ -48,7 +35,8 @@ class Parser
          * @var ReflectionProperty $property
          */
         foreach ($classReflection->getProperties() as $property) {
-            $classNode->addProperty(self::createProperty($property));
+            $node = NodeFactory::getFactory(NodeFactory::TYPE_PROPERTY)->create($property);
+            $classNode->addProperty($node);
         }
         
         /**
@@ -99,18 +87,7 @@ class Parser
         return $methodNode;
     }
     
-    public static function createProperty(\ReflectionProperty $property)
-    {
-        $propertyNode = new PropertyNode();
-        $propertyNode->name = $property->getName();
-        $propertyNode->setModifiers(self::getModifiers($property));
-
-        if ($property->getDocComment()) {
-            $propertyNode->type = DocCommentParser::getVarType($property->getDocComment());
-        }
-
-        return $propertyNode;
-    }
+    
     
     public static function createConstant(string $name, $value)
     {
@@ -162,18 +139,5 @@ class Parser
         return $argumentNode;
     }
     
-    private static function getModifiers($object): array
-    {
-        $code = $object->getModifiers();
-        $modifiers = [];
-
-        foreach (self::$attributes as $function => $key) {
-            if (method_exists($object, $function) && $object->$function()) {
-                $code -= $key;
-                $modifiers[] = self::$modifiers[$key];
-            }
-        }
-        
-        return $modifiers;
-    }
+    
 }

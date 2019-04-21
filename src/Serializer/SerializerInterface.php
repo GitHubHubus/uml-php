@@ -5,14 +5,11 @@ namespace OK\Uml\Serializer;
 /**
  * @author Oleg Kochetkov <oleg.kochetkov999@yandex.ru>
  */
-class Serializer implements SerializerInterface
+interface SerializerInterface
 {
     /**
      * @param array $data
      * @return string
      */
-    public function serialize(array $data): string
-    {
-        return '';
-    }
+    public function serialize(array $data): string;
 }

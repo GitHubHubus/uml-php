@@ -8,11 +8,11 @@ use OK\Uml\Parser\Factory\NodeFactory;
 /**
  * @author Oleg Kochetkov <oleg.kochetkov999@yandex.ru>
  */
-class Parser
+class Parser implements ParserInterface
 {
     /**
      * @param string $className
-     * @return type
+     * @return NodeInterface
      */
     public static function getClassInformation(string $className): NodeInterface
     {

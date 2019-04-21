@@ -42,7 +42,11 @@ class Test {
         
         $data = $uml->getRaw();
         
-       // var_dump($data);   
+        foreach ($data as $d) {
+            if ($d instanceof \OK\Uml\Entity\InterfaceNode) {
+                var_dump($d); 
+            }
+        }
     }
 }
 

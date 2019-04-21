@@ -36,10 +36,11 @@ class File
         return $files;
     }
     
-    public static function getClassName(string $file)
+    public static function getClassInfo(string $file)
     {
         $fp = fopen($file, 'r');
         $class = $namespace = $buffer = '';
+        $type = null;
         $i = 0;
 
         while (!$class) {
@@ -54,7 +55,7 @@ class File
                 continue;
             }
 
-            for (;$i<count($tokens);$i++) {
+            for (;$i < count($tokens); $i++) {
                 if ($tokens[$i][0] === T_NAMESPACE) {
                     for ($j = $i + 1; $j < count($tokens); $j++) {
                         if ($tokens[$j][0] === T_STRING) {
@@ -66,6 +67,7 @@ class File
                 }
 
                 if ($tokens[$i][0] === T_CLASS || $tokens[$i][0] === T_TRAIT || $tokens[$i][0] === T_INTERFACE) {
+                    $type = $tokens[$i][0];
                     for ($j = $i + 1; $j < count($tokens); $j++) {
                         if ($tokens[$j] === '{') {
                             $class = $tokens[$i+2][1];
@@ -75,7 +77,11 @@ class File
             }
         }
         
-        return $namespace . '\\' . $class;
+        if ($type === null) {
+            throw new Exception('Type of class is undefined');
+        }
+        
+        return [$namespace . '\\' . $class, $type];
     }
     
     /**

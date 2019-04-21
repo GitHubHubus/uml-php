@@ -11,7 +11,9 @@ interface ParserInterface
 {
     /**
      * @param string $className
+     * @param string $type
+     *
      * @return NodeInterface|null
      */
-    public static function getClassInformation(string $className): ?NodeInterface;
+    public static function getClassMetadata(string $className, string $type): ?NodeInterface;
 }

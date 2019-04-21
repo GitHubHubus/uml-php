@@ -12,9 +12,11 @@ class Parser implements ParserInterface
 {
     /**
      * @param string $className
+     * @param string $type
+     *
      * @return NodeInterface|null
      */
-    public static function getClassInformation(string $className): ?NodeInterface
+    public static function getClassMetadata(string $className, string $type): ?NodeInterface
     {
         try {
             $class = new \ReflectionClass($className);
@@ -22,6 +24,6 @@ class Parser implements ParserInterface
             return null;
         }
 
-        return NodeFactory::getFactory(NodeInterface::TYPE_CLASS)->create($class);
+        return NodeFactory::getFactory($type)->create($class);
     }
 }

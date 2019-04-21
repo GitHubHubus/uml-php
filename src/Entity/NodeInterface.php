@@ -15,6 +15,12 @@ interface NodeInterface
     const TYPE_METHOD = 'method';
     const TYPE_PROPERTY = 'property';
 
+    const CLASS_TYPES = [
+        T_CLASS => self::TYPE_CLASS,
+        T_TRAIT => self::TYPE_TRAIT,
+        T_INTERFACE => self::TYPE_INTERFACE
+    ];
+    
     /**
      * @return string
      */

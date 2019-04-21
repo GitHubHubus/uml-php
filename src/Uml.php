@@ -2,6 +2,7 @@
 
 namespace OK\Uml;
 
+use OK\Uml\Entity\NodeInterface;
 use OK\Uml\File\File;
 use OK\Uml\Parser\ParserInterface;
 use OK\Uml\Serializer\SerializerInterface;
@@ -46,9 +47,9 @@ class Uml
         $files = File::get($this->rootDirectory);
         
         foreach ($files as $file) {
-            $class = File::getClassName($file);
-            $information = $this->parser::getClassInformation($class);
-            
+            $class = File::getClassInfo($file);
+            $information = $this->parser::getClassMetadata($class[0], NodeInterface::CLASS_TYPES[$class[1]]);
+
             if ($information) {
                 $data[] = $information;
             }

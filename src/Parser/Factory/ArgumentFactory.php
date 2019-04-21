@@ -3,20 +3,32 @@
 namespace OK\Uml\Parser\Factory;
 
 use OK\Uml\Entity\ArgumentNode;
-use OK\Uml\Entity\ClassNode;
-use OK\Uml\Entity\ConstantNode;
-use OK\Uml\Entity\InterfaceNode;
-use OK\Uml\Entity\MethodNode;
-use OK\Uml\Entity\PropertyNode;
-use OK\Uml\Entity\TraitNode;
 
 /**
  * @author Oleg Kochetkov <oleg.kochetkov999@yandex.ru>
  */
 class ArgumentFactory implements NodeFactoryInterface
 {
-    public function create($object)
+    /**
+     * @param \ReflectionParameter $param
+     * @param array $args
+     * @return ArgumentNode
+     */
+    public function create($param, array $args = [])
     {
-        
+        $argumentNode = new ArgumentNode();
+        $argumentNode->name = $param->getName();
+
+        if ($args) {
+            if (!empty($args) && isset($args[$param->getPosition()])) {
+                $argumentNode->type = $args[$param->getPosition()][0];
+            }
+        } else if ($param->isDefaultValueAvailable()) {
+            $argumentNode->type = gettype($param->getDefaultValue());
+        } else if ($param->isArray()) {
+            $argumentNode->type = 'array';
+        }
+
+        return $argumentNode;
     }
 }

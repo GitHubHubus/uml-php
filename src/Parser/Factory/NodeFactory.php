@@ -14,24 +14,14 @@ class NodeFactory
     const TYPE_ARGUMENT = 'argument';
     const TYPE_METHOD = 'method';
     const TYPE_PROPERTY = 'property';
-    
-    private static $types = [
-        self::TYPE_CLASS,
-        self::TYPE_INTERFACE,
-        self::TYPE_TRAIT,
-        self::TYPE_CONSTANT,
-        self::TYPE_ARGUMENT,
-        self::TYPE_METHOD,
-        self::TYPE_PROPERTY,
-    ];
-    
+  
     public static function getFactory(string $type)
     {
-        if (in_array($type)) {
-            $factory = ucfirst($type) . 'Factory';
-            return new $factory();
+        $classFactory = __NAMESPACE__ . '\\' . ucfirst($type) . 'Factory';
+        if (class_exists($classFactory)) {
+            return new $classFactory();
         } else {
-            throw new \Exception(printf('Factory %s doesn\'t exist', $type));
+            throw new \Exception(printf('Factory %s doesn\'t exist', $classFactory));
         }
     }
 }

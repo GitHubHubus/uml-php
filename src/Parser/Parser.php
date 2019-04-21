@@ -28,7 +28,8 @@ class Parser
          * @var ReflectionMethod $method
          */
         foreach ($classReflection->getMethods() as $method) {
-            $classNode->addMethod(self::createMethod($method));
+            $node = NodeFactory::getFactory(NodeFactory::TYPE_METHOD)->create($method);
+            $classNode->addMethod($node);
         }
         
         /**
@@ -38,19 +39,18 @@ class Parser
             $node = NodeFactory::getFactory(NodeFactory::TYPE_PROPERTY)->create($property);
             $classNode->addProperty($node);
         }
-        
-        /**
-         * @var array $constant
-         */
+
         foreach ($classReflection->getConstants() as $key => $value) {
-            $classNode->addConstant(self::createConstant($key, $value));
+            $node = NodeFactory::getFactory(NodeFactory::TYPE_CONSTANT)->create([$key, $value]);
+            $classNode->addConstant($node);
         }
         
         /**
          * @var ReflectionInterface $interface
          */
         foreach ($classReflection->getInterfaces() as $interface) {
-            $classNode->addInterface(self::createInterface($interface));
+            $node = NodeFactory::getFactory(NodeFactory::TYPE_INTERFACE)->create($interface);
+            $classNode->addInterface($node);
         }
         
         /**
@@ -62,57 +62,7 @@ class Parser
         
         return $classNode;
     }
-    
-    public static function createMethod(\ReflectionMethod $method)
-    {
-        $methodNode = new MethodNode();
-        $methodNode->name = $method->getName();
-        
-        $comment = $method->getDocComment();
-        $args = [];
 
-        if ($comment) {
-            $args = DocCommentParser::getArguments($comment);
-            $methodNode->type = DocCommentParser::getReturnType($comment);
-        }
-
-        if ($method->getNumberOfParameters() > 0) {
-            foreach ($method->getParameters() as $param) {
-                $methodNode->addArgument(self::createArgument($param, $args));
-            }
-        }
-
-        $methodNode->setModifiers(self::getModifiers($method));
-        
-        return $methodNode;
-    }
-    
-    
-    
-    public static function createConstant(string $name, $value)
-    {
-        $constantNode = new ConstantNode();
-        $constantNode->name = $name;
-        $constantNode->type = gettype($value);
-
-        return $constantNode;
-    }
-    
-    public static function createInterface(\ReflectionClass $interface)
-    {
-        $interfaceNode = new InterfaceNode();
-        $interfaceNode->name = $interface->getName();
-        $interfaceNode->extend = $interface->getParentClass() ? $interface->getParentClass()->getName() : null; //return null why?
-        /**
-         * @var ReflectionMethod $method
-         */
-        foreach ($interface->getMethods() as $method) {
-            $interfaceNode->addMethod(self::createMethod($method));
-        }
-
-        return $interfaceNode;
-    }
-    
     public static function createTrait(\ReflectionClass $trait)
     {
         $traitNode = new TraitNode();
@@ -120,24 +70,4 @@ class Parser
                 
         return $traitNode;
     }
-    
-    public static function createArgument(\ReflectionParameter $param, array $args = [])
-    {
-        $argumentNode = new ArgumentNode();
-        $argumentNode->name = $param->getName();
-
-        if ($args) {
-            if (!empty($args) && isset($args[$param->getPosition()])) {
-                $argumentNode->type = $args[$param->getPosition()][0];
-            }
-        } else if ($param->isDefaultValueAvailable()) {
-            $argumentNode->type = gettype($param->getDefaultValue());
-        } else if ($param->isArray()) {
-            $argumentNode->type = 'array';
-        }
-
-        return $argumentNode;
-    }
-    
-    
 }

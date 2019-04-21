@@ -9,8 +9,23 @@ use OK\Uml\Entity\InterfaceNode;
  */
 class InterfaceFactory implements NodeFactoryInterface
 {
-    public function create($object)
+    /**
+     * @param \ReflectionClass $interface
+     * @return InterfaceNode
+     */
+    public function create($interface)
     {
-        
+        $interfaceNode = new InterfaceNode();
+        $interfaceNode->name = $interface->getName();
+        $interfaceNode->extend = $interface->getParentClass() ? $interface->getParentClass()->getName() : null; //return null why?
+        /**
+         * @var ReflectionMethod $method
+         */
+        foreach ($interface->getMethods() as $method) {
+            $node = NodeFactory::getFactory(NodeFactory::TYPE_METHOD)->create($method);
+            $interfaceNode->addMethod($node);
+        }
+
+        return $interfaceNode;
     }
 }

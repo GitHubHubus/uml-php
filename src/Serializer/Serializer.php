@@ -13,6 +13,6 @@ class Serializer implements SerializerInterface
      */
     public function serialize(array $data): string
     {
-        return '';
+        return 'json serialize result';
     }
 }

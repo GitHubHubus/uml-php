@@ -2,6 +2,7 @@
 
 namespace OK\Uml\Parser\Factory;
 
+use OK\Uml\Entity\NodeInterface;
 use OK\Uml\Entity\ArgumentNode;
 
 /**
@@ -14,7 +15,7 @@ class ArgumentFactory implements NodeFactoryInterface
      * @param array $args
      * @return ArgumentNode
      */
-    public function create($param, array $args = [])
+    public function create($param, array $args = []): NodeInterface
     {
         $argumentNode = new ArgumentNode();
         $argumentNode->name = $param->getName();

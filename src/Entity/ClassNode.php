@@ -7,7 +7,7 @@ use OK\Uml\Entity\MethodNode;
 /**
  * @author Oleg Kochetkov <oleg.kochetkov999@yandex.ru>
  */
-class ClassNode {
+class ClassNode implements NodeInterface {
     use CommonNode;
 
     public $methods = [];
@@ -40,21 +40,29 @@ class ClassNode {
     
     public function addProperty(PropertyNode $property)
     {
-        $this->property[] = $property;
+        $this->properties[] = $property;
     }
     
     public function addConstant(ConstantNode $constant)
     {
-        $this->constant[] = $constant;
+        $this->constants[] = $constant;
     }
     
     public function addInterface(InterfaceNode $interface)
     {
-        $this->interface[] = $interface;
+        $this->interfaces[] = $interface;
     }
     
     public function addTrait(TraitNode $trait)
     {
-        $this->trait[] = $trait;
+        $this->traits[] = $trait;
+    }
+    
+    /**
+     * @return string
+     */
+    public static function getNodeType(): string
+    {
+        return NodeInterface::TYPE_CLASS;
     }
 }

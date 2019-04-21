@@ -2,6 +2,7 @@
 
 namespace OK\Uml\Parser\Factory;
 
+use OK\Uml\Entity\NodeInterface;
 use OK\Uml\Entity\PropertyNode;
 use OK\Uml\Parser\DocCommentParser;
 
@@ -16,7 +17,7 @@ class PropertyFactory implements NodeFactoryInterface
      * @param \ReflectionProperty $object
      * @return PropertyNode
      */
-    public function create($object)
+    public function create($object): NodeInterface
     {
         $propertyNode = new PropertyNode();
         $propertyNode->name = $object->getName();

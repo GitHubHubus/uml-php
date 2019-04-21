@@ -3,6 +3,7 @@
 namespace OK\Uml\Parser\Factory;
 
 use OK\Uml\Entity\MethodNode;
+use OK\Uml\Entity\NodeInterface;
 use OK\Uml\Parser\DocCommentParser;
 
 /**
@@ -16,7 +17,7 @@ class MethodFactory implements NodeFactoryInterface
      * @param \ReflectionMethod $object
      * @return MethodNode
      */
-    public function create($object)
+    public function create($object): NodeInterface
     {
         $methodNode = new MethodNode();
         $methodNode->name = $object->getName();
@@ -30,7 +31,7 @@ class MethodFactory implements NodeFactoryInterface
         }
 
         if ($object->getNumberOfParameters() > 0) {
-            $argumentFactory = NodeFactory::getFactory(NodeFactory::TYPE_ARGUMENT);
+            $argumentFactory = NodeFactory::getFactory(NodeInterface::TYPE_ARGUMENT);
             foreach ($object->getParameters() as $param) {
                 $methodNode->addArgument($argumentFactory->create($param, $args));
             }

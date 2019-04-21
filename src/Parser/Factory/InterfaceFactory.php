@@ -3,6 +3,7 @@
 namespace OK\Uml\Parser\Factory;
 
 use OK\Uml\Entity\InterfaceNode;
+use OK\Uml\Entity\NodeInterface;
 
 /**
  * @author Oleg Kochetkov <oleg.kochetkov999@yandex.ru>
@@ -13,7 +14,7 @@ class InterfaceFactory implements NodeFactoryInterface
      * @param \ReflectionClass $interface
      * @return InterfaceNode
      */
-    public function create($interface)
+    public function create($interface): NodeInterface
     {
         $interfaceNode = new InterfaceNode();
         $interfaceNode->name = $interface->getName();
@@ -22,7 +23,7 @@ class InterfaceFactory implements NodeFactoryInterface
          * @var ReflectionMethod $method
          */
         foreach ($interface->getMethods() as $method) {
-            $node = NodeFactory::getFactory(NodeFactory::TYPE_METHOD)->create($method);
+            $node = NodeFactory::getFactory(NodeInterface::TYPE_METHOD)->create($method);
             $interfaceNode->addMethod($node);
         }
 

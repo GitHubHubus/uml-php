@@ -7,6 +7,7 @@ use OK\Uml\Parser\Parser;
 
 class Test {
     public function __construct() {
+        include __DIR__ . '/../src/Entity/NodeInterface.php';
         include __DIR__ . '/../src/Entity/ArgumentNode.php';
         include __DIR__ . '/../src/Entity/CommonNode.php';
         include __DIR__ . '/../src/Entity/MethodNode.php';
@@ -19,6 +20,7 @@ class Test {
         
         include __DIR__ . '/../src/Parser/Factory/NodeFactoryInterface.php';
         include __DIR__ . '/../src/Parser/Factory/ModifiersTrait.php';
+        include __DIR__ . '/../src/Parser/Factory/ConstantFactory.php';
         include __DIR__ . '/../src/Parser/Factory/ArgumentFactory.php';
         include __DIR__ . '/../src/Parser/Factory/MethodFactory.php';
         include __DIR__ . '/../src/Parser/Factory/InterfaceFactory.php';

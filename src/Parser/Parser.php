@@ -12,11 +12,15 @@ class Parser implements ParserInterface
 {
     /**
      * @param string $className
-     * @return NodeInterface
+     * @return NodeInterface|null
      */
-    public static function getClassInformation(string $className): NodeInterface
+    public static function getClassInformation(string $className): ?NodeInterface
     {
-        $class = new \ReflectionClass($className);
+        try {
+            $class = new \ReflectionClass($className);
+        } catch (\ReflectionException $e) {
+            return null;
+        }
 
         return NodeFactory::getFactory(NodeInterface::TYPE_CLASS)->create($class);
     }

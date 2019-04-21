@@ -18,7 +18,7 @@ class TraitFactory implements NodeFactoryInterface
     {
         $traitNode = new TraitNode();
         $traitNode->name = $trait->getName();
-        
+
         /**
          * @var \ReflectionMethod $method
          */

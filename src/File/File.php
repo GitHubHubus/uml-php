@@ -27,7 +27,7 @@ class File
 
             if (self::isDirectory($name)) {
                 $data = self::get($name);
-                array_merge($files, $data);
+                $files = array_merge($files, $data);
             } else if (self::isPhpFile($name)) {
                 $files[] = $name;
             }
@@ -41,17 +41,22 @@ class File
         $fp = fopen($file, 'r');
         $class = $namespace = $buffer = '';
         $i = 0;
+
         while (!$class) {
-            if (feof($fp)) break;
+            if (feof($fp)) {
+                break;
+            }
 
             $buffer .= fread($fp, 512);
             $tokens = token_get_all($buffer);
 
-            if (strpos($buffer, '{') === false) continue;
+            if (strpos($buffer, '{') === false) {
+                continue;
+            }
 
             for (;$i<count($tokens);$i++) {
                 if ($tokens[$i][0] === T_NAMESPACE) {
-                    for ($j=$i+1;$j<count($tokens); $j++) {
+                    for ($j = $i + 1; $j < count($tokens); $j++) {
                         if ($tokens[$j][0] === T_STRING) {
                              $namespace .= '\\'.$tokens[$j][1];
                         } else if ($tokens[$j] === '{' || $tokens[$j] === ';') {
@@ -60,8 +65,8 @@ class File
                     }
                 }
 
-                if ($tokens[$i][0] === T_CLASS) {
-                    for ($j=$i+1;$j<count($tokens);$j++) {
+                if ($tokens[$i][0] === T_CLASS || $tokens[$i][0] === T_TRAIT || $tokens[$i][0] === T_INTERFACE) {
+                    for ($j = $i + 1; $j < count($tokens); $j++) {
                         if ($tokens[$j] === '{') {
                             $class = $tokens[$i+2][1];
                         }

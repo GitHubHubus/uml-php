@@ -42,7 +42,7 @@ class Test {
         
         $data = $uml->getRaw();
         
-        var_dump($data);   
+       // var_dump($data);   
     }
 }
 

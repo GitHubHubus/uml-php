@@ -4,6 +4,7 @@ namespace OK\Uml\Entity;
 
 use OK\Uml\Entity\CommonNode;
 use OK\Uml\Entity\MethodNode;
+
 /**
  * @author Oleg Kochetkov <oleg.kochetkov999@yandex.ru>
  */
@@ -21,7 +22,7 @@ class ClassNode implements NodeInterface {
     {
         $this->name = $name;
     }
-    
+
     /**
      * @return array
      */
@@ -29,7 +30,7 @@ class ClassNode implements NodeInterface {
     {
         return $this->methods;
     }
-    
+
     /**
      * @param MethodNode $method
      */
@@ -37,7 +38,7 @@ class ClassNode implements NodeInterface {
     {
         $this->methods[] = $method;
     }
-    
+
     public function addProperty(PropertyNode $property)
     {
         $this->properties[] = $property;

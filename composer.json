@@ -1,0 +1,29 @@
+{
+    "name": "ok/uml-php",
+    "type": "library",
+    "description": "The library for generating information about project's classes",
+    "keywords": ["graph", "uml", "data", "reflection", "diagramm", "php"],
+    "homepage": "https://github.com/GitHubHubus/uml-php",
+    "authors": [
+        {
+            "name": "Oleg Kochetkov",
+            "email": "oleg.kochetkov999@yandex.ru"
+        }
+    ],
+    "require": {
+        "php": ">=7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.8 || ^5.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "OK\\Uml\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-0": {
+            "OK\\Uml\\Tests\\": "tests/"
+        }
+    }
+}

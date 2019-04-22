@@ -15,13 +15,14 @@ class MethodFactory implements NodeFactoryInterface
 
     /**
      * @param \ReflectionMethod $object
+     *
      * @return MethodNode
      */
     public function create($object): NodeInterface
     {
         $methodNode = new MethodNode();
         $methodNode->name = $object->getName();
-        
+
         $comment = $object->getDocComment();
         $args = [];
 
@@ -38,7 +39,7 @@ class MethodFactory implements NodeFactoryInterface
         }
 
         $methodNode->setModifiers(self::getModifiers($object));
-        
+
         return $methodNode;
     }
 }

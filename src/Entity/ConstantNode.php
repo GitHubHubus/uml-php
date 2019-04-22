@@ -5,7 +5,8 @@ namespace OK\Uml\Entity;
 /**
  * @author Oleg Kochetkov <oleg.kochetkov999@yandex.ru>
  */
-class ConstantNode implements NodeInterface {
+class ConstantNode implements NodeInterface
+{
     use CommonNode;
     
     /**

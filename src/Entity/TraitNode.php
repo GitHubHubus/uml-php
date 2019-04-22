@@ -2,14 +2,29 @@
 
 namespace OK\Uml\Entity;
 
+use OK\Uml\Entity\PropertyNode;
+use OK\Uml\Entity\TraitNode;
+
 /**
  * @author Oleg Kochetkov <oleg.kochetkov999@yandex.ru>
  */
-class TraitNode implements NodeInterface {
+class TraitNode implements NodeInterface
+{
     use CommonNode;
 
+    /**
+     * @var array
+     */
     private $traits = [];
+
+    /**
+     * @var array
+     */
     private $methods = [];
+
+    /**
+     * @var array
+     */
     private $properties = [];
 
     /**
@@ -28,16 +43,22 @@ class TraitNode implements NodeInterface {
         $this->methods[] = $method;
     }
 
+    /**
+     * @param PropertyNode $property
+     */
     public function addProperty(PropertyNode $property)
     {
         $this->properties[] = $property;
     }
 
+    /**
+     * @param TraitNode $trait
+     */
     public function addTrait(TraitNode $trait)
     {
         $this->traits[] = $trait;
     }
-    
+
     /**
      * @return string
      */

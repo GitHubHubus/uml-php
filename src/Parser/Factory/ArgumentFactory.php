@@ -13,6 +13,7 @@ class ArgumentFactory implements NodeFactoryInterface
     /**
      * @param \ReflectionParameter $param
      * @param array $args
+     *
      * @return ArgumentNode
      */
     public function create($param, array $args = []): NodeInterface

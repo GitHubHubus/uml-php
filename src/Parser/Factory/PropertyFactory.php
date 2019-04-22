@@ -15,6 +15,7 @@ class PropertyFactory implements NodeFactoryInterface
 
     /**
      * @param \ReflectionProperty $object
+     *
      * @return PropertyNode
      */
     public function create($object): NodeInterface

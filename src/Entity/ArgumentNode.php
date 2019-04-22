@@ -5,10 +5,18 @@ namespace OK\Uml\Entity;
 /**
  * @author Oleg Kochetkov <oleg.kochetkov999@yandex.ru>
  */
-class ArgumentNode implements NodeInterface {
+class ArgumentNode implements NodeInterface
+{
+    /**
+     * @var string
+     */
     public $name;
-    public $type = null;
     
+    /**
+     * @var tring|null
+     */
+    public $type = null;
+
     /**
      * @return string
      */

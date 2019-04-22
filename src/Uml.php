@@ -3,7 +3,7 @@
 namespace OK\Uml;
 
 use OK\Uml\Entity\NodeInterface;
-use OK\Uml\File\File;
+use OK\Uml\FileCrawler\FileCrawler;
 use OK\Uml\Parser\ParserInterface;
 use OK\Uml\Serializer\SerializerInterface;
 
@@ -44,10 +44,10 @@ class Uml
     private function process(): array
     {
         $data = [];
-        $files = File::get($this->rootDirectory);
+        $files = FileCrawler::get($this->rootDirectory);
         
         foreach ($files as $file) {
-            $class = File::getClassInfo($file);
+            $class = FileCrawler::getClassInfo($file);
             $information = $this->parser::getClassMetadata($class[0], NodeInterface::CLASS_TYPES[$class[1]]);
 
             if ($information) {

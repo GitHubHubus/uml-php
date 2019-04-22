@@ -12,6 +12,7 @@ class TraitFactory implements NodeFactoryInterface
 {
     /**
      * @param \ReflectionClass $trait
+     *
      * @return TraitNode
      */
     public function create($trait): NodeInterface
@@ -26,7 +27,7 @@ class TraitFactory implements NodeFactoryInterface
             $node = NodeFactory::getFactory(NodeInterface::TYPE_METHOD)->create($method);
             $traitNode->addMethod($node);
         }
-        
+
         /**
          * @var \ReflectionProperty $property
          */
@@ -42,7 +43,7 @@ class TraitFactory implements NodeFactoryInterface
             $node = NodeFactory::getFactory(NodeInterface::TYPE_TRAIT)->create($class);
             $traitNode->addTrait($node);
         }
-        
+
         return $traitNode;
     }
 }

@@ -7,17 +7,28 @@ use OK\Uml\Entity\ArgumentNode;
 /**
  * @author Oleg Kochetkov <oleg.kochetkov999@yandex.ru>
  */
-class MethodNode implements NodeInterface {
+class MethodNode implements NodeInterface
+{
     use CommonNode;
 
+    /**
+     * @var array
+     */
     public $arguments = [];
+
+    /**
+     * @var string
+     */
     public $type;
-    
+
+    /**
+     * @param ArgumentNode $argument
+     */
     public function addArgument(ArgumentNode $argument)
     {
         $this->arguments[] = $argument;
     }
-    
+
     /**
      * @return string
      */

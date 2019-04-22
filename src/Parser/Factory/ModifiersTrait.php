@@ -5,13 +5,20 @@ namespace OK\Uml\Parser\Factory;
 /**
  * @author Oleg Kochetkov <oleg.kochetkov999@yandex.ru>
  */
-trait ModifiersTrait {
+trait ModifiersTrait
+{
+    /**
+     * @var array
+     */
     private static $attributes = [
         'isStatic' => \ReflectionMethod::IS_STATIC, 
         'isFinal' => \ReflectionMethod::IS_FINAL, 
         'isAbstract' => \ReflectionMethod::IS_ABSTRACT
     ];
-    
+
+    /**
+     * @var array
+     */
     public static $modifiers = [
         \ReflectionMethod::IS_ABSTRACT => 'abstract',
         \ReflectionMethod::IS_FINAL => 'final',
@@ -20,7 +27,12 @@ trait ModifiersTrait {
         \ReflectionMethod::IS_PUBLIC => 'public',
         \ReflectionMethod::IS_STATIC => 'static'
     ];
-    
+
+    /**
+     * @param \ReflectionClass|\ReflectionMethod $object
+     *
+     * @return array
+     */
     private static function getModifiers($object): array
     {
         $code = $object->getModifiers();

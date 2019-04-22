@@ -9,5 +9,8 @@ use OK\Uml\Entity\NodeInterface;
  */
 interface NodeFactoryInterface
 {
+    /**
+     * @param \Reflection $object
+     */
     public function create($object): NodeInterface;
 }

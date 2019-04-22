@@ -1,14 +1,17 @@
 <?php
 
-namespace OK\Uml\File;
+namespace OK\Uml\FileCrawler;
+
+use OK\Uml\FileCrawler\Exception\FileCrawlerException;
 
 /**
  * @author Oleg Kochetkov <oleg.kochetkov999@yandex.ru>
  */
-class File
+class FileCrawler
 {
     /**
      * @param string $directory
+     *
      * @return array
      */
     public static function get(string $directory): array
@@ -35,8 +38,14 @@ class File
 
         return $files;
     }
-    
-    public static function getClassInfo(string $file)
+
+    /**
+     * @param string $file
+     *
+     * @return array
+     * @throws FileCrawlerException
+     */
+    public static function getClassInfo(string $file): array
     {
         $fp = fopen($file, 'r');
         $class = $namespace = $buffer = '';
@@ -78,24 +87,25 @@ class File
         }
         
         if ($type === null) {
-            throw new Exception('Type of class is undefined');
+            throw new FileCrawlerException('Type of class is undefined');
         }
         
         return [$namespace . '\\' . $class, $type];
     }
     
     /**
-     * 
      * @param string $name
-     * @return type
+     *
+     * @return bool
      */
-    private static function isDirectory(string $name)
+    private static function isDirectory(string $name): bool
     {
         return (is_dir($name) && substr($name, -1) !== '.');
     }
     
     /**
      * @param string $name
+     *
      * @return bool
      */
     private static function isPhpFile(string $name): bool

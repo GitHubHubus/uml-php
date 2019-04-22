@@ -12,6 +12,7 @@ class ClassFactory implements NodeFactoryInterface
 {
     /**
      * @param \ReflectionClass $class
+     *
      * @return ClassNode
      */
     public function create($class): NodeInterface

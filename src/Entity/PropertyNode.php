@@ -5,9 +5,13 @@ namespace OK\Uml\Entity;
 /**
  * @author Oleg Kochetkov <oleg.kochetkov999@yandex.ru>
  */
-class PropertyNode implements NodeInterface {
+class PropertyNode implements NodeInterface
+{
     use CommonNode;
 
+    /**
+     * @var string
+     */
     public $type;
     
     /**

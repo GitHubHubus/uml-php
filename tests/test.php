@@ -29,24 +29,20 @@ class Test {
         include __DIR__ . '/../src/Parser/Factory/PropertyFactory.php';
         include __DIR__ . '/../src/Parser/Factory/NodeFactory.php';
         
-        include __DIR__ . '/../src/File/File.php';
+        include __DIR__ . '/../src/FileCrawler/FileCrawler.php';
         include __DIR__ . '/../src/Serializer/SerializerInterface.php';
-        include __DIR__ . '/../src/Serializer/Serializer.php';
+        include __DIR__ . '/../src/Serializer/JsonSerializer.php';
         include __DIR__ . '/../src/Parser/ParserInterface.php';
         include __DIR__ . '/../src/Parser/Parser.php';
         include __DIR__ . '/../src/Uml.php';
         
         
 
-        $uml = new \OK\Uml\Uml(__DIR__ . '/../src', new Parser(), new \OK\Uml\Serializer\Serializer());
+        $uml = new \OK\Uml\Uml(__DIR__ . '/../src', new Parser(), new \OK\Uml\Serializer\JsonSerializer());
         
-        $data = $uml->getRaw();
+        $data = $uml->get();
         
-        foreach ($data as $d) {
-            if ($d instanceof \OK\Uml\Entity\InterfaceNode) {
-                var_dump($d); 
-            }
-        }
+        var_dump($data);
     }
 }
 

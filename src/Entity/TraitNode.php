@@ -36,6 +36,22 @@ class TraitNode implements NodeInterface
     }
 
     /**
+     * @return array
+     */
+    public function getTraits(): array
+    {
+        return $this->traits;
+    }
+
+    /**
+     * @return array
+     */
+    public function getProperties(): array
+    {
+        return $this->properties;
+    }
+    
+    /**
      * @param MethodNode $method
      */
     public function addMethod(MethodNode $method)

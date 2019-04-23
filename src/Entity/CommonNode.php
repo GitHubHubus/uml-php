@@ -24,4 +24,12 @@ trait CommonNode
     {
         $this->modifiers = $modifiers;
     }
+    
+    /**
+     * @param return array
+     */
+    public function getModifiers(): array
+    {
+        return $this->modifiers;
+    }
 }

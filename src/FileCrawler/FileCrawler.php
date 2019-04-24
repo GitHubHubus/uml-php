@@ -13,6 +13,7 @@ class FileCrawler
      * @param string $directory
      *
      * @return array
+     * @throws FileCrawlerException
      */
     public static function get(string $directory): array
     {
@@ -20,7 +21,7 @@ class FileCrawler
         
         if (!$objects) {
             $error = error_get_last();
-            throw new \Exception($error['message'] . '[' . $directory . ']');
+            throw new FileCrawlerException($error['message'] . '[' . $directory . ']');
         }
         
         $files = [];
@@ -65,7 +66,9 @@ class FileCrawler
             }
 
             for (;$i < count($tokens); $i++) {
-                if ($tokens[$i][0] === T_NAMESPACE) {
+                $token = $tokens[$i][0];
+
+                if ($token === T_NAMESPACE) {
                     for ($j = $i + 1; $j < count($tokens); $j++) {
                         if ($tokens[$j][0] === T_STRING) {
                              $namespace .= '\\'.$tokens[$j][1];
@@ -75,8 +78,8 @@ class FileCrawler
                     }
                 }
 
-                if ($tokens[$i][0] === T_CLASS || $tokens[$i][0] === T_TRAIT || $tokens[$i][0] === T_INTERFACE) {
-                    $type = $tokens[$i][0];
+                if (in_array($token, [T_CLASS, T_TRAIT, T_INTERFACE])) {
+                    $type = $token;
                     for ($j = $i + 1; $j < count($tokens); $j++) {
                         if ($tokens[$j] === '{') {
                             $class = $tokens[$i+2][1];
@@ -85,11 +88,11 @@ class FileCrawler
                 }
             }
         }
-        
+
         if ($type === null) {
             throw new FileCrawlerException('Type of class is undefined');
         }
-        
+
         return [$namespace . '\\' . $class, $type];
     }
     

@@ -40,9 +40,7 @@ class Test {
 
         $uml = new \OK\Uml\Uml(__DIR__ . '/../src', new Parser(), new \OK\Uml\Serializer\JsonSerializer());
         
-        $data = $uml->get();
-        
-        var_dump($data);
+        echo $uml->get();
     }
 }
 

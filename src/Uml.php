@@ -12,9 +12,20 @@ use OK\Uml\Serializer\SerializerInterface;
  */
 class Uml
 {
-    private $rootDirectory = null;
-    private $prepared = [];
+    /**
+     * @var string
+     */
+    private $rootDirectory;
+
+    /**
+     *
+     * @var SerializerInterface
+     */
     private $serializer;
+
+    /**
+     * @var ParserInterface 
+     */
     private $parser;
     
     /**
@@ -29,18 +40,27 @@ class Uml
         $this->serializer = $serializer;
     }
 
-    public function get()
+    /**
+     * @return string
+     */
+    public function get(): string
     {
         $data = $this->process();
 
         return $this->serializer->serialize($data);
     }
-    
-    public function getRaw()
+
+    /**
+     * @return array
+     */
+    public function getRaw(): array
     {
         return $this->process();
     }
-    
+
+    /**
+     * @return array
+     */
     private function process(): array
     {
         $data = [];

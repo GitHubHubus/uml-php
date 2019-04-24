@@ -25,7 +25,12 @@ class JsonSerializer implements SerializerInterface
         return json_encode($result);
     }
 
-    private function process(NodeInterface $node)
+    /**
+     * @param NodeInterface $node
+     *
+     * @return array
+     */
+    private function process(NodeInterface $node): array
     {
         $class = new \ReflectionClass(get_class($node));
         $data = [];
@@ -40,8 +45,14 @@ class JsonSerializer implements SerializerInterface
 
         return $data;
     }
-    
-    private function access($node, $property)
+
+    /**
+     * 
+     * @param NodeInterface $node
+     * @param \ReflectionProperty $property
+     * @return mixed
+     */
+    private function access(NodeInterface $node, \ReflectionProperty $property)
     {
         $value = null;
         $propertyName = $property->getName();
@@ -59,6 +70,10 @@ class JsonSerializer implements SerializerInterface
         return $value;
     }
 
+    /**
+     * @param mixed $value
+     * @return mixed
+     */
     private function modify($value)
     {
         if (is_array($value)) {

@@ -10,7 +10,7 @@ class AbstractClass
     public $name;
     
     /**
-     * @var tring|null
+     * @var string|null
      */
     public $type = null;
 }

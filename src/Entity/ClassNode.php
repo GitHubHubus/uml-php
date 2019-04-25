@@ -6,8 +6,6 @@ use OK\Uml\Entity\CommonNode;
 use OK\Uml\Entity\ConstantNode;
 use OK\Uml\Entity\MethodNode;
 use OK\Uml\Entity\PropertyNode;
-use OK\Uml\Entity\InterfaceNode;
-use OK\Uml\Entity\TraitNode;
 
 /**
  * @author Oleg Kochetkov <oleg.kochetkov999@yandex.ru>
@@ -19,7 +17,7 @@ class ClassNode implements NodeInterface
     public $methods = [];
     public $properties = [];
     public $constants = [];
-    public $implements = [];
+    public $interfaces = [];
     public $traits = [];
     public $extend;
 

@@ -68,10 +68,10 @@ class Uml
         
         foreach ($files as $file) {
             $class = FileCrawler::getClassInfo($file);
-            $information = $this->parser::getClassMetadata($class[0], NodeInterface::CLASS_TYPES[$class[1]]);
+            $node = $this->parser::getClassMetadata($class[0], NodeInterface::CLASS_TYPES[$class[1]]);
 
-            if ($information) {
-                $data[] = $information;
+            if ($node) {
+                $data[] = $node;
             }
         }
 

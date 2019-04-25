@@ -2,11 +2,15 @@
 
 namespace Tests;
 
-use OK\Uml\Entity\ClassNode;
 use OK\Uml\Parser\Parser;
 
 class Test {
     public function __construct() {
+        include __DIR__ . '/Classes/AbstractClass.php';
+        include __DIR__ . '/Classes/NewTrait.php';
+        include __DIR__ . '/Classes/NewInterface.php';
+        include __DIR__ . '/Classes/NewClass.php';
+        
         include __DIR__ . '/../src/Entity/NodeInterface.php';
         include __DIR__ . '/../src/Entity/ArgumentNode.php';
         include __DIR__ . '/../src/Entity/CommonNode.php';
@@ -38,7 +42,7 @@ class Test {
         
         
 
-        $uml = new \OK\Uml\Uml(__DIR__ . '/../src', new Parser(), new \OK\Uml\Serializer\JsonSerializer());
+        $uml = new \OK\Uml\Uml(__DIR__ . '/../tests/Classes', new Parser(), new \OK\Uml\Serializer\JsonSerializer());
         
         echo $uml->get();
     }

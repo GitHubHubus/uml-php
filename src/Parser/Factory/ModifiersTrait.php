@@ -44,7 +44,9 @@ trait ModifiersTrait
                 $modifiers[] = self::$modifiers[$key];
             }
         }
-        
+
+        $modifiers[] = self::$modifiers[$code];
+
         return $modifiers;
     }
 }

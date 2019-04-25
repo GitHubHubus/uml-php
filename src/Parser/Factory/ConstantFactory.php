@@ -19,6 +19,7 @@ class ConstantFactory implements NodeFactoryInterface
     {
         $constantNode = new ConstantNode();
         $constantNode->name = $object[0];
+        $constantNode->value = $object[1];
         $constantNode->type = gettype($object[1]);
 
         return $constantNode;

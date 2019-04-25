@@ -45,16 +45,14 @@ class ClassFactory implements NodeFactoryInterface
          * @var \ReflectionInterface $interface
          */
         foreach ($class->getInterfaces() as $interface) {
-            $node = NodeFactory::getFactory(NodeInterface::TYPE_INTERFACE)->create($interface);
-            $classNode->addInterface($node);
+            $classNode->addInterface($interface->getName());
         }
         
         /**
          * @var \ReflectionClass $trait
          */
         foreach ($class->getTraits() as $trait) {
-            $node = NodeFactory::getFactory(NodeInterface::TYPE_TRAIT)->create($trait);
-            $classNode->addTrait($node);
+            $classNode->addTrait($trait->getName());
         }
         
         return $classNode;

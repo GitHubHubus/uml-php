@@ -64,17 +64,17 @@ class ClassNode implements NodeInterface
     }
 
     /**
-     * @param InterfaceNode $interface
+     * @param string $interface
      */
-    public function addInterface(InterfaceNode $interface)
+    public function addInterface(string $interface)
     {
         $this->interfaces[] = $interface;
     }
 
     /**
-     * @param TraitNode $trait
+     * @param string $trait
      */
-    public function addTrait(TraitNode $trait)
+    public function addTrait(string $trait)
     {
         $this->traits[] = $trait;
     }

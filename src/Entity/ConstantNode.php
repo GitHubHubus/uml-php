@@ -8,7 +8,17 @@ namespace OK\Uml\Entity;
 class ConstantNode implements NodeInterface
 {
     use CommonNode;
-    
+
+    /**
+     * @var tring|null
+     */
+    public $type = null;
+
+    /**
+     * @var mixed
+     */
+    public $value = null;
+
     /**
      * @return string
      */

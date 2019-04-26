@@ -29,7 +29,7 @@ trait ModifiersTrait
     ];
 
     /**
-     * @param \ReflectionClass|\ReflectionMethod $object
+     * @param \ReflectionProperty|\ReflectionMethod $object
      *
      * @return array
      */

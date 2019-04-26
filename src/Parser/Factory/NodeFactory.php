@@ -22,7 +22,7 @@ class NodeFactory
         if (class_exists($classFactory)) {
             return new $classFactory();
         } else {
-            throw new \NodeFactoryException(printf('Factory %s doesn\'t exist', $classFactory));
+            throw new NodeFactoryException(printf('Factory %s doesn\'t exist', $classFactory));
         }
     }
 }

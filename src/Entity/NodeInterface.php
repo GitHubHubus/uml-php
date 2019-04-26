@@ -20,7 +20,7 @@ interface NodeInterface
         T_TRAIT => self::TYPE_TRAIT,
         T_INTERFACE => self::TYPE_INTERFACE
     ];
-    
+
     /**
      * @return string
      */

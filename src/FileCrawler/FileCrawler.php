@@ -21,7 +21,9 @@ class FileCrawler
         
         if (!$objects) {
             $error = error_get_last();
-            throw new FileCrawlerException($error['message'] . '[' . $directory . ']');
+            if ($error) {
+               throw new FileCrawlerException($error['message'] . '[' . $directory . ']'); 
+            }
         }
         
         $files = [];
@@ -59,7 +61,7 @@ class FileCrawler
             }
 
             $buffer .= fread($fp, 512);
-            $tokens = token_get_all($buffer);
+            $tokens = @token_get_all($buffer);
 
             if (strpos($buffer, '{') === false) {
                 continue;

@@ -14,7 +14,7 @@ class DocCommentParser
      */
     public static function getReturnType(string $comment): ?string
     {
-        preg_match('/@return[\s]+([A-Za-z_0-9-]+)\n/', $comment, $matches);
+        preg_match('/@return[\s]+([A-Za-z_0-9-|]+)\n/', $comment, $matches);
         
         return $matches[1] ?? null;
     }
@@ -26,7 +26,7 @@ class DocCommentParser
      */
     public static function getVarType(string $comment): ?string
     {
-        preg_match('/@var[\s]+([A-Za-z_0-9-]+)/', $comment, $matches);
+        preg_match('/@var[\s]+([A-Za-z_0-9-|]+)/', $comment, $matches);
         
         return $matches[1] ?? null;
     }
@@ -34,14 +34,14 @@ class DocCommentParser
     /**
      * @param string $comment
      *
-     * @return string|null
+     * @return array
      */
-    public static function getArguments(string $comment): ?array
+    public static function getArguments(string $comment): array
     {
-        preg_match_all('/@param[\s]+[A-Za-z$0-9_\-\s]+\n/', $comment, $matches);
+        preg_match_all('/@param[\s]+[A-Za-z$0-9_\-|\s]+\n/', $comment, $matches);
 
         if (empty($matches)) {
-            return null;
+            return [];
         }
         
         $arguments = [];

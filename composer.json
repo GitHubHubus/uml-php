@@ -23,7 +23,10 @@
     },
     "autoload-dev": {
         "psr-0": {
-            "OK\\Uml\\Tests\\": "tests/"
-        }
+            "Tests\\": "tests/"
+        },
+        "classmap": [
+            "tests/", "src/"
+        ]
     }
 }

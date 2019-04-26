@@ -1,6 +1,6 @@
 <?php
 
-namespace OK\Uml\Tests;
+namespace Tests;
 
 /** 
  * @author Oleg Kochetkov <oleg.kochetkov999@yandex.ru>

@@ -21,10 +21,8 @@ class ArgumentFactory implements NodeFactoryInterface
         $argumentNode = new ArgumentNode();
         $argumentNode->name = $param->getName();
 
-        if ($args) {
-            if (!empty($args) && isset($args[$param->getPosition()])) {
-                $argumentNode->type = $args[$param->getPosition()][0];
-            }
+        if (!empty($args) && isset($args[$param->getPosition()])) {
+            $argumentNode->type = $args[$param->getPosition()][0];
         } else if ($param->isDefaultValueAvailable()) {
             $argumentNode->type = gettype($param->getDefaultValue());
         } else if ($param->isArray()) {

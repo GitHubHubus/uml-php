@@ -11,6 +11,7 @@ interface NodeFactoryInterface
 {
     /**
      * @param \Reflection $object
+     * @return NodeInterface
      */
     public function create($object): NodeInterface;
 }

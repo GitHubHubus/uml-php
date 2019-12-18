@@ -13,6 +13,7 @@ class JsonSerializer implements SerializerInterface
      * @param NodeInterface[] $nodes
      *
      * @return string
+     * @throws \ReflectionException
      */
     public function serialize(array $nodes): string
     {
@@ -29,6 +30,7 @@ class JsonSerializer implements SerializerInterface
      * @param NodeInterface $node
      *
      * @return array
+     * @throws \ReflectionException
      */
     private function process(NodeInterface $node): array
     {
@@ -73,6 +75,7 @@ class JsonSerializer implements SerializerInterface
     /**
      * @param mixed $value
      * @return mixed
+     * @throws \ReflectionException
      */
     private function modify($value)
     {

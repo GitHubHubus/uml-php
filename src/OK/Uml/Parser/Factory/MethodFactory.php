@@ -17,6 +17,7 @@ class MethodFactory implements NodeFactoryInterface
      * @param \ReflectionMethod $object
      *
      * @return MethodNode
+     * @throws Exception\NodeFactoryException
      */
     public function create($object): NodeInterface
     {

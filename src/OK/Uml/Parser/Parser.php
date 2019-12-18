@@ -15,6 +15,7 @@ class Parser implements ParserInterface
      * @param string $type
      *
      * @return NodeInterface|null
+     * @throws Factory\Exception\NodeFactoryException
      */
     public static function getClassMetadata(string $className, string $type): ?NodeInterface
     {

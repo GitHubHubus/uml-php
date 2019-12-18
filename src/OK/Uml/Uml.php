@@ -60,6 +60,7 @@ class Uml
 
     /**
      * @return array
+     * @throws FileCrawler\Exception\FileCrawlerException
      */
     private function process(): array
     {

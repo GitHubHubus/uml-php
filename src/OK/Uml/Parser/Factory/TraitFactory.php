@@ -14,6 +14,7 @@ class TraitFactory implements NodeFactoryInterface
      * @param \ReflectionClass $trait
      *
      * @return TraitNode
+     * @throws Exception\NodeFactoryException
      */
     public function create($trait): NodeInterface
     {

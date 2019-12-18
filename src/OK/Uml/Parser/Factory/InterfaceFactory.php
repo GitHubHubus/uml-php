@@ -14,12 +14,14 @@ class InterfaceFactory implements NodeFactoryInterface
      * @param \ReflectionClass $interface
      *
      * @return InterfaceNode
+     * @throws Exception\NodeFactoryException
      */
     public function create($interface): NodeInterface
     {
         $interfaceNode = new InterfaceNode();
         $interfaceNode->name = $interface->getName();
         $interfaceNode->extend = $interface->getParentClass() ? $interface->getParentClass()->getName() : null; //return null why?
+
         /**
          * @var ReflectionMethod $method
          */

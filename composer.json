@@ -2,7 +2,7 @@
     "name": "ok/uml-php",
     "type": "library",
     "description": "The library for generating information about project's classes",
-    "keywords": ["graph", "uml", "data", "reflection", "diagramm", "php"],
+    "keywords": ["graph", "uml", "data", "reflection", "diagram", "php"],
     "homepage": "https://github.com/GitHubHubus/uml-php",
     "authors": [
         {

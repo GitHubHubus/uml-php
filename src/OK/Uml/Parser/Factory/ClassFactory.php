@@ -10,6 +10,8 @@ use OK\Uml\Entity\NodeInterface;
  */
 class ClassFactory implements NodeFactoryInterface
 {
+    use MethodTrait;
+
     /**
      * @param \ReflectionClass $class
      *
@@ -25,6 +27,10 @@ class ClassFactory implements NodeFactoryInterface
          * @var \ReflectionMethod $method
          */
         foreach ($class->getMethods() as $method) {
+            if (!$this->isNotExtended($method)) {
+                continue;
+            }
+
             $node = NodeFactory::getFactory(NodeInterface::TYPE_METHOD)->create($method);
             $classNode->addMethod($node);
         }

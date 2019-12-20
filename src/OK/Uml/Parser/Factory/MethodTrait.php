@@ -24,7 +24,12 @@ trait MethodTrait
         '__autoload'
     ];
 
-    public function isNotExtended($method) {
+    /**
+     * @param \ReflectionMethod $method
+     * @return bool
+     */
+    public function isNotExtended(\ReflectionMethod $method): bool
+    {
         $isNotExtended = true;
         if (!in_array($method->name, self::$magicMethods)) {
             $isNotExtended = false;

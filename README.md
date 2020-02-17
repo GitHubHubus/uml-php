@@ -3,19 +3,19 @@
 uml-php is a library for crawling and generating data structors from project's classes. Information about classes based on doc comments and signature of classes, methods, properties and etc.
 Information about classes is represented by a number of nodes:
 
-* [ArgumentNode](https://github.com/GitHubHubus/uml-php/blob/master/src/Entity/ArgumentNode.php)
+* [ArgumentNode](https://github.com/GitHubHubus/uml-php/blob/master/src/OK/Uml/Entity/ArgumentNode.php)
 
-* [ClassNode](https://github.com/GitHubHubus/uml-php/blob/master/src/Entity/ClassNode.php)
+* [ClassNode](https://github.com/GitHubHubus/uml-php/blob/master/src/OK/Uml/Entity/ClassNode.php)
 
-* [ConstantNode](https://github.com/GitHubHubus/uml-php/blob/master/src/Entity/ConstantNode.php)
+* [ConstantNode](https://github.com/GitHubHubus/uml-php/blob/master/src/OK/Uml/Entity/ConstantNode.php)
 
-* [InterfaceNode](https://github.com/GitHubHubus/uml-php/blob/master/src/Entity/InterfaceNode.php)
+* [InterfaceNode](https://github.com/GitHubHubus/uml-php/blob/master/src/OK/Uml/Entity/InterfaceNode.php)
 
-* [MethodNode](https://github.com/GitHubHubus/uml-php/blob/master/src/Entity/MethodNode.php)
+* [MethodNode](https://github.com/GitHubHubus/uml-php/blob/master/src/OK/Uml/Entity/MethodNode.php)
 
-* [PropertyNode](https://github.com/GitHubHubus/uml-php/blob/master/src/Entity/PropertyNode.php)
+* [PropertyNode](https://github.com/GitHubHubus/uml-php/blob/master/OK/Uml/src/Entity/PropertyNode.php)
 
-* [TraitNode](https://github.com/GitHubHubus/uml-php/blob/master/src/Entity/TraitNode.php)
+* [TraitNode](https://github.com/GitHubHubus/uml-php/blob/master/src/OK/Uml/Entity/TraitNode.php)
 
 # Install
 

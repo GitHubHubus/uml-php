@@ -19,7 +19,7 @@ Information about classes is represented by a number of nodes:
 
 # Install
 
-`composer require ok/uml-php`
+`composer require ok/uml-php --dev`
 
 # Usage
 
@@ -35,6 +35,7 @@ use OK\Uml\Serializer\JsonSerializer;
 
 class Test {
     public function __construct() {
+        require_once __DIR__ . '/vendor/autoload.php';
         $uml = new Uml('path_to_project', new Parser(), new JsonSerializer());
         
         echo $uml->get();

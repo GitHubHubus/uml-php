@@ -3,6 +3,7 @@
 namespace OK\Uml;
 
 use OK\Uml\Entity\NodeInterface;
+use OK\Uml\FileCrawler\Exception\FileCrawlerException;
 use OK\Uml\FileCrawler\FileCrawler;
 use OK\Uml\Parser\ParserInterface;
 use OK\Uml\Serializer\SerializerInterface;
@@ -27,13 +28,17 @@ class Uml
      * @var ParserInterface 
      */
     private $parser;
-    
+
     /**
      * @param string $directory
      * @param ParserInterface $parser
      * @param SerializerInterface $serializer
      */
-    public function __construct(string $directory, ParserInterface $parser, SerializerInterface $serializer)
+    public function __construct(
+        string $directory,
+        ParserInterface $parser,
+        SerializerInterface $serializer
+    )
     {
         $this->rootDirectory = $directory;
         $this->parser = $parser;
@@ -42,6 +47,7 @@ class Uml
 
     /**
      * @return string
+     * @throws FileCrawlerException
      */
     public function get(): string
     {
@@ -60,7 +66,7 @@ class Uml
 
     /**
      * @return array
-     * @throws FileCrawler\Exception\FileCrawlerException
+     * @throws FileCrawlerException
      */
     private function process(): array
     {
@@ -68,8 +74,16 @@ class Uml
         $files = FileCrawler::get($this->rootDirectory);
         
         foreach ($files as $file) {
-            $class = FileCrawler::getClassInfo($file);
-            $node = $this->parser::getClassMetadata($class[0], NodeInterface::CLASS_TYPES[$class[1]]);
+            try {
+                $classInfo = FileCrawler::getClassInfo($file);
+            } catch (FileCrawlerException $ex) {
+                continue;
+            }
+
+            $node = $this->parser::getClassMetadata(
+                $classInfo->getPath(),
+                NodeInterface::CLASS_TYPES[$classInfo->getType()]
+            );
 
             if ($node) {
                 $data[] = $node;

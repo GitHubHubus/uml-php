@@ -45,10 +45,10 @@ class FileCrawler
     /**
      * @param string $file
      *
-     * @return array
+     * @return ClassInfo
      * @throws FileCrawlerException
      */
-    public static function getClassInfo(string $file): array
+    public static function getClassInfo(string $file): ClassInfo
     {
         $fp = fopen($file, 'r');
         $class = $namespace = $buffer = '';
@@ -92,10 +92,10 @@ class FileCrawler
         }
 
         if ($type === null) {
-            throw new FileCrawlerException('Type of class is undefined');
+            throw new FileCrawlerException(sprintf('The file %s doesn\'t have a valid type of class', $file));
         }
 
-        return [$namespace . '\\' . $class, $type];
+        return new ClassInfo($namespace . '\\' . $class, $type);
     }
     
     /**
